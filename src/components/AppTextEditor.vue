@@ -18,9 +18,9 @@
       </div>
 
       <button 
-        v-for="{ slug, active, icon }, index in textActions"
+        v-for="{ slug, option, active, icon }, index in textActions"
         :class="{ 'active': editor.isActive(active) }"
-        @click="onActionClick(slug)">
+        @click="onActionClick(slug, option)">
         <i :class="icon"></i>
       </button>
     </div>
@@ -60,10 +60,10 @@ export default {
         { slug: 'italic', icon: 'ri-italic', active: 'italic' },
         { slug: 'underline', icon: 'ri-underline', active: 'underline' },
         { slug: 'strike', icon: 'ri-strikethrough', active: 'strike' },
-        { slug: 'left', icon: 'ri-align-left', active: { textAlign: 'left' } },
-        { slug: 'center', icon: 'ri-align-center', active: { textAlign: 'center' } },
-        { slug: 'right', icon: 'ri-align-right', active: { textAlign: 'right' } },
-        { slug: 'justify', icon: 'ri-align-justify', active: { textAlign: 'justify' } },
+        { slug: 'align', option: 'left', icon: 'ri-align-left', active: { textAlign: 'left' } },
+        { slug: 'align', option: 'center', icon: 'ri-align-center', active: { textAlign: 'center' } },
+        { slug: 'align', option: 'right', icon: 'ri-align-right', active: { textAlign: 'right' } },
+        { slug: 'align', option: 'justify', icon: 'ri-align-justify', active: { textAlign: 'justify' } },
         { slug: 'bulletList', icon: 'ri-list-unordered', active: 'bulletList' },
         { slug: 'orderedList', icon: 'ri-list-ordered', active: 'orderedList' },
         { slug: 'subscript', icon: 'ri-subscript-2', active: 'subscript' },
@@ -81,7 +81,7 @@ export default {
     },
   },
   methods: {
-    onActionClick(slug) {
+    onActionClick(slug, option = null) {
       const vm = this.editor.chain().focus();
       const actionTriggers = {
         bold: () => vm.toggleBold().run(),
@@ -90,10 +90,7 @@ export default {
         strike: () => vm.toggleStrike().run(),
         bulletList: () => vm.toggleBulletList().run(),
         orderedList: () => vm.toggleOrderedList().run(),
-        left: () => vm.setTextAlign('left').run(),
-        center: () => vm.setTextAlign('center').run(),
-        right: () => vm.setTextAlign('right').run(),
-        justify: () => vm.setTextAlign('justify').run(),
+        align: () => vm.setTextAlign(option).run(),
         subscript: () => vm.toggleSubscript().run(),
         superscript: () => vm.toggleSuperscript().run(),
         undo: () => vm.undo().run(),
