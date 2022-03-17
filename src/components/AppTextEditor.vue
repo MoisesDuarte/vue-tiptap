@@ -28,8 +28,8 @@
     <editor-content :editor="editor" />
 
     <div v-if="editor" class="footer">
-      {{ editor.getCharacterCount() }} characters / 
-      {{ editor.state.doc.textContent.split(' ').length }} words
+      {{ charactersCount }} characters / 
+      {{ wordsCount }} words
     </div>
   </div>
 </template>
@@ -73,6 +73,15 @@ export default {
         { slug: 'clear', icon: 'ri-format-clear', active: 'clear' },
       ],
     }
+  },
+  computed: {
+    charactersCount() {
+      // TODO: This is becoming deprecated. Replace soon
+      return this.editor.getCharacterCount();
+    },
+    wordsCount() {
+      return this.editor.state.doc.textContent.split(' ').length;
+    },
   },
   watch: {
     modelValue(value) {
