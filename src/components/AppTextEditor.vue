@@ -41,6 +41,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
+import CharacterCount from '@tiptap/extension-character-count';
 
 export default {
   components: {
@@ -76,8 +77,7 @@ export default {
   },
   computed: {
     charactersCount() {
-      // TODO: This is becoming deprecated. Replace soon
-      return this.editor.getCharacterCount();
+      return this.editor.storage.characterCount.characters();
     },
     wordsCount() {
       return this.editor.state.doc.textContent.split(' ').length;
@@ -125,6 +125,7 @@ export default {
         Underline,
         Subscript,
         Superscript,
+        CharacterCount,
         TextAlign.configure({
           types: ['heading', 'paragraph'],
         }),
