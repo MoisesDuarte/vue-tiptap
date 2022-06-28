@@ -28,7 +28,7 @@
     <editor-content :editor="editor" />
 
     <div v-if="editor" class="footer">
-      {{ charactersCount }} characters / 
+      {{ charactersCount }} {{ maxLimit ? `/ ${maxLimit}` : '' }} characters |
       {{ wordsCount }} words
     </div>
   </div>
@@ -51,6 +51,10 @@ export default {
     modelValue: {
       type: String,
       default: '',
+    },
+    maxLimit: {
+      type: Number,
+      default: null,
     },
   },
   data() {
@@ -125,7 +129,9 @@ export default {
         Underline,
         Subscript,
         Superscript,
-        CharacterCount,
+        CharacterCount.configure({
+          limit: this.maxLimit,
+        }),
         TextAlign.configure({
           types: ['heading', 'paragraph'],
         }),

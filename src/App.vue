@@ -2,7 +2,7 @@
   <div id="app">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 
-    <AppTextEditor v-model="content" />
+    <AppTextEditor v-model="content" :max-limit="280" />
     <button 
       class="submit-button" 
       @click="onSubmit">
