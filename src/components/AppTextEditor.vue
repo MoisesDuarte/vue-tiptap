@@ -80,7 +80,7 @@ export default {
       return this.editor.storage.characterCount.characters();
     },
     wordsCount() {
-      return this.editor.state.doc.textContent.split(' ').length;
+      return this.editor.storage.characterCount.words();
     },
   },
   watch: {
