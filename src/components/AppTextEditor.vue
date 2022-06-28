@@ -28,8 +28,13 @@
     <editor-content :editor="editor" />
 
     <div v-if="editor" class="footer">
-      {{ charactersCount }} {{ maxLimit ? `/ ${maxLimit}` : '' }} characters |
-      {{ wordsCount }} words
+      <span class="characters-count" :class="limitWarning">
+        {{ charactersCount }} {{ maxLimit ? `/ ${maxLimit} characters` : 'characters' }}
+      </span>
+      |
+      <span class="words-count">
+        {{ wordsCount }} words
+      </span>
     </div>
   </div>
 </template>
@@ -85,6 +90,15 @@ export default {
     },
     wordsCount() {
       return this.editor.storage.characterCount.words();
+    },
+    limitWarning() {
+      const isCloseToMax = this.charactersCount >= this.maxLimit - 20;
+      const isMax = this.charactersCount === this.maxLimit;
+
+      if (isCloseToMax && !isMax) return 'warning';
+      if (isMax) return 'danger';
+
+      return '';
     },
   },
   watch: {
@@ -235,6 +249,16 @@ export default {
     font-size: 14px;
     text-align: right;
     padding: 6px;
+
+    .characters-count {
+      &.warning {
+        color: orange;
+      }
+
+      &.danger {
+        color: red;
+      }
+    }
   }
 
   .ProseMirror {
