@@ -28,7 +28,7 @@
     <editor-content :editor="editor" />
 
     <div v-if="editor" class="footer">
-      <span class="characters-count" :class="limitWarning">
+      <span class="characters-count" :class="maxLimit ? limitWarning : ''">
         {{ charactersCount }} {{ maxLimit ? `/ ${maxLimit} characters` : 'characters' }}
       </span>
       |
